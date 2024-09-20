@@ -23,7 +23,7 @@ embeddings = OllamaEmbeddings(model="nomic-embed-text", show_progress=True)
 # text_splitter = SemanticChunker(embeddings, breakpoint_threshold_type="interquartile")
 
 text_splitter = RecursiveCharacterTextSplitter(
-    separators=["\n\n","\n"," ",""]
+    separators=["\n\n","\n"," ",""],
     chunk_size=1500,
     chunk_overlap=300,
     add_start_index=True,

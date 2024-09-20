@@ -25,6 +25,7 @@ RfP affiliation change request.
 •	The RfP tracker will reflect current quarter affiliations on the 4th day of the third month of the quarter or 2-3 days after notice is received if received after the 4th day of the third month of the quarter.
 •	Affiliations in Intouch are synched with the RfP tracker once a quarter at the end of the quarter.
 •	*Option to Send Inquiry*
+
 Sign up for MyApp
 
 •	Contact New Accounts to set the Account to “Independent”.
