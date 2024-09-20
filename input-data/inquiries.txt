@@ -1,0 +1,176 @@
+RfP Alignments and Affiliations
+
+Account is not found on the RfP Tracker
+
+•	An account will not appear on the RfP Tracker if it has $0 in sales for the current quarter or if it is not an active member of any RfP group.
+•	There are known issues when searching by account name in the RfP tracker. Please try searching by account number.
+•	*Option to Send Inquiry*
+
+SAP is missing or incorrectly aligned on the RfP Tracker
+
+•	SAPs are aligned to RfP locations by address. Please ensure the information in our system matches what the RfP group is reporting. Addresses in our system can be updated by contacting New Accounts.
+•	*Option to Send Inquiry*
+
+RfP location is grouped incorrectly
+
+•	RfP location groupings are determined by the RfP group (i.e. GPO or Lease Franchise). Please contact the Group Headquarters to resolve grouping issues.
+•	*There should not be an option to Send Inquiry here*
+
+RfP affiliation change request.
+
+•	All affiliation change requests must be accompanied by documentation (such as an email) from the account requesting such. Please include account number, group to be affiliated with, and quarter to begin new affiliation.
+•	Alternatively, the account can send the request to RA-VISUS-SalesInquir@its.jnj.com directly. Ensure that they include SAP, date of affiliation change, and group to be affiliated with.
+•	An account must join, or have joined, the requested RfP group on or before the last day of the first month of the quarter to qualify for a rebate.
+•	Affiliation change requests will be honored until the last day of the quarter.
+•	The RfP tracker will reflect current quarter affiliations on the 4th day of the third month of the quarter or 2-3 days after notice is received if received after the 4th day of the third month of the quarter.
+•	Affiliations in Intouch are synched with the RfP tracker once a quarter at the end of the quarter.
+•	*Option to Send Inquiry*
+Sign up for MyApp
+
+•	Contact New Accounts to set the Account to “Independent”.
+•	Have the account sign up on the MyApp portal/ reach out to SA-visus-viseyesite@its.jnj.com to enroll manually.
+•	The deadline for a given quarter is the last day of the first month of the quarter.
+•	MyApp groupings are determined by a common Payer account. An account with a Payer who is not enrolled in MyApp will not be eligible to receive a rebate through MyApp. Payer alignments are handled by New Accounts.
+•	*There should not be an option to Send Inquiry here*
+
+Sign up for Alliance
+
+•	Have the account sign up on the Acuvue Alliance portal/ reach out to SA-visus-viseyesite@its.jnj.com to enroll manually.
+•	The deadline for a given quarter is the last day of the first month of the quarter.
+•	Alliance groupings are determined by a common indirect customer reference account number. An account with an indirect customer reference account number who is not enrolled in Alliance will not be eligible to receive a rebate through Alliance. Indirect customer reference account number alignments are handled by New Accounts.
+•	*There should not be an option to Send Inquiry here*
+Please reach out to New Accounts to update the payer/rfp grouping under myAPP/ Alliance.
+RfP Payments
+
+RfP payment is incorrect /Adjustment request
+
+•	RfP sales will not match sales in InTouch/totem pole  because RfP sales are based on contracted prices.
+•	Rfp revenue is calculated using current year contracted prices (singles price). Please refer to the Rfp tracker for accurate revenue information.
+•	*Option to Send Inquiry*
+
+Check missing / Reissue request
+
+•	If the account is a member of a GPO please contact their respective headquarters to resolve all check related issues.
+•	If it is myAPP, Alliance or LF ; Refer to the CX team
+•	*Option to Send Inquiry*
+
+Name or address on payment is incorrect
+
+•	If the account is a member of a GPO please contact their respective headquarters to resolve all check related issues.
+•	MyApp address information is sourced from our system. Please contact New Accounts to resolve this issue.
+•	Reissue check : If it is myAPP, Alliance or LF ; Refer to the CX team
+•	*Option to Send Inquiry*
+Preferred Baseline Issues
+Point of sale and share data is provided by GPN, based on customer POS entries, and updated on the Preferred RFP Tracker on a weekly basis. The information in the Preferred RFP Tracker is updated weekly and includes POS information through the previous week. In most instances, the baseline information should remain consistent since it is based on historical information, however, there are a number of different factors that can change the baseline share data including but not limited to: changes in office sales/POS system, roster affiliation changes (i.e. adding/removing locations), and timing of when data is refreshed across the various dashboards/tools. 
+
+You may view quarterly RFP history in the Preferred RFP Tracker in the ‘Rebate History’ section.  ACUVUE Share and baseline share will continue to update in the ‘Rebate’ section with the latest data from GPN, based on customer’s POS entries, on a weekly basis. Please continue to reference the most recent updated through dates in the top right of the Preferred RFP Tracker. The ACUVUE® Dashboard Powered by GPN® continues to be updated on a daily basis and can provide up to date information on current effective year to date share. 
+
+While the baseline share value might change throughout a given quarter for the reasons noted above, as outlined in the Preferred agreement, for all POS and share data “calculations will be computed based solely on the data as reflected at the close of the quarter”.
+
+GPN and JJV do not have the ability to alter any POS or share data as it comes in directly from the customer’s practice management system. It is the customer’s responsibility to ensure the data being reported from their POS system is accurate and timely.
+Per the    Preferred T&Cs, Section 7 and Section 14(d), the account must have GPN installed at each affiliated location and the account must capture point of sale data at each individual affiliated location. 
+
+Preferred account awaiting validation
+GPN data is currently not flowing for this account. If GPN was installed recently, it takes about 3 weeks to complete validation and up to 2 weeks for this to flow to all JnJ systems. 
+If GPN has been installed for more than 6 weeks, please use the attached data steps file to assist in resolving the issue.
+
+Partner tier Rebates rules
+Accounts in Partner tier are required to grow at least one percentage point of share from the baseline period to earn a rebate. Partner tier accounts that satisfy this growth criteria are eligible for 50% of their YTD RAS growth less their rebate earned previously in the YTD period. 
+
+This account ended 2021 with YTD share of 36.3% qualifying them for Partner tier. Partner tier accounts are required to grow at least one share point to earn a rebate. Their share growth was -3.81%
+
+Current YTD Rev : $13285.36
+YTD RAS Growth : $0.00
+Preferred rebate: $0.00
+Q1 Est. Rebate = $
+Q2 Est. Rebate = $2892.36
+True-up = 6551.24 - 3450.54- 2892.36 = $208.34.  
+
+
+GPN Manual Share Finalization and Benefit tier
+Final calculations for the Q3 market share and O1D Promotion are based on data provided to us by GPN with data up to and including 10/14/21. Any changes made by the doctor to their data after 10/14/21 will not impact Q3 payments. Please find details of the calculation below:
+Q2 Effective YTD share: %
+Q1 2021 O1D Share: %
+Q2 2021 O1D Share: %
+Q2 O1D Share Growth: %
+Growth of at least 5% is required for accounts below 80% Effective YTD share to have earned a rebate under this promotion.
+Growth of at least 0% is required for accounts at or above 80% Effective YTD share to have earned a rebate under this promotion.
+
+Full Install
+There are now two requirements for a group to be considered fully installed:
+
+1.	Total soft_cl >=1 at at least one sap in each quarter in the current YTD period
+2.	Total soft_cl >=1 at at least 1 SAP per location in the current quarter
+
+MyApp Account cannot Enroll in Preferred 
+I see this account joined MyApp on [insert date] after the [insert Quarter eligibility deadline date]. 
+This account is therefore eligible for Rfp in [insert quarter]. 
+Once this account shows up in our active rosters for [insert Quarter], you will be able to enroll the account in Preferred.
+
+Rebate Percentage Errors in the Rfp Tracker
+This is only a reporting issue in the Rfp tracker and did (does) not affect the rebates earned by these accounts. The team is aware of this and are working to have this resolved. The Q2 percentages have been corrected effective 9/8/21. Please let me know if you have questions.
+
+Preferred Benefits eligibility
+*Attach the Preferred eligibility* 
+Please find attached the Preferred Benefits eligibility file. Please refer to the customer activation dashboard to check eligibility for benefits or check with your DBM if you have doubts. Please let me know if you have further questions.
+
+
+Explanation of rebates for non-Partner tier accounts.
+Preferred diamond tier accounts are entitled to the maximum of 20% of their YTD revenue or 50% of rfp sales growth less the estimated rebate earned previously in the YTD period. 
+Current YTD Rev: $67,213.07
+Previous YTD Rev: $65,402
+YTD Growth: $ 1,811.07
+RAS growth rebate: 0.5*$1,811.07 =  $905.5
+Rebate: 0.2* $67,213.07= $13,442.61
+Max Pref Rebate = $13,454.25
+Q1 Est. Rebate = $3,588.61
+Q2 Est Rebate = $0.0
+Q3 Est Rebate = $3,336.6
+True-up = $13,442.61- $3,588.61- $0.00 - $3,336.6= $6,517.4
+Please let me know if you have further questions.
+We are in the process of finalizing Q4 end quarter status. Once completed, the status of account will be communicated, and their eligible benefits will be updated on the activation dashboard.
+
+
+
+RBD Dashboard Issues.
+Please reach out to Anthony Bonk @abonk@ITS.JNJ.com to resolve all RBD dashboard related issues.
+
+MyAPP YTD Calc
+MyAPP accounts in their 2nd active quarter in the YTD period and a growth of between 5% and 10% require a minimum of $11,000.00 to earn 1% of their YTD rev as rebate, $50,000.00 to earn 3% of their YTD rev as rebate and $100,00.00 to earn 5% of their YTD rev as rebate.
+MyAPP accounts in their 2nd active quarter in the YTD period and a growth of between 10% and 15% require a minimum of $11,000.00 to earn 2% of their YTD rev as rebate, $50,000.00 to earn 4% of their YTD rev as rebate and $100,00.00 to earn 6% of their YTD rev as rebate.
+MyAPP accounts in their 2nd active quarter in the YTD period and a growth greater than 15% require a minimum of $11,000.00 to earn 3% of their YTD rev as rebate, $50,000.00 to earn 5% of their YTD rev as rebate and $100,00.00 to earn 7% of their YTD rev as rebate.
+
+This account had a YTD rev of $30,082.27 in Q2 less than the $50,000.00 minimum required for a 3% rebate hence the account was eligible for 1% rebate as it had met the minimum of $11,000.00 required.
+
+1%* $46,614.67 = $466.15. 
+
+In Q1, this account earned a rebate of $723.65. 
+
+True up Calculations;
+$466.15 - $723.65 = -$ 257.50
+Hence why they did not earn a rebate in Q2.
+
+
+Alliance YTD rebate Explanation
+Alliance accounts in their 3rd active quarter in the YTD period require a minimum of $18,000.00 to earn 1% of their YTD rev as rebate, $56,250.00 to earn 3% of their YTD rev as rebate and $112,500.00 to earn 5% of their YTD rev as rebate etc.
+
+This account had a YTD rev of $ 54682.87 in Q3 less than the $56,250.00 minimum required for a 3% rebate hence the account was eligible for 1% rebate as it had met the minimum of $18,000.00  required.
+
+1%* $54,682.87 = $546.83 
+With a previous YTD revenue of $47,748.25 the account grew by $6933.62
+Growth rebate: 0.25 * 6933.62 = 1733.41
+Q1 loyalty reb: 0
+Q2 loyalty reb:0
+Loyalty rebate true – up  : $546.83
+Q1 growth reb: 0
+Q2 growth reb;0
+Growth reb true- up: 1733.41
+Total rebate: $1733.41 + 546.83 = 2280.24
+Please let me know if you have further questions.
+
+
+Non-filtered accounts
+GPN has reported that this office has not entered sales data into their PMS for some time. Please ensure there are no data issues and schedule a best practices session with GPN for this office if needed.
+
+
+
