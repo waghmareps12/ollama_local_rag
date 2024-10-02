@@ -9,6 +9,7 @@ from langchain.schema.runnable import RunnablePassthrough
 from langchain.schema.output_parser import StrOutputParser
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain.memory import ConversationBufferMemory
 
 # # Create embeddingsclear
 embeddings = OllamaEmbeddings(model="nomic-embed-text", show_progress=False)
@@ -21,7 +22,7 @@ retriever = db.as_retriever(
     search_type="similarity",
     search_kwargs= {"k": 5}
 )
-
+memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 # # Create Ollama language model - Gemma 2
 local_llm = 'llama3.2:latest'
 
@@ -37,7 +38,7 @@ Write in full sentences with correct spelling and punctuation. Use bullet points
 If the context doesn't contain the answer, politely state that you don't have the specific information and suggest contacting the sales department for more details.
 
 CONTEXT: {context}
-
+CHAT HISTORY: {chat_history}
 QUESTION: {question}
 
 <end_of_turn>
@@ -47,7 +48,7 @@ prompt = ChatPromptTemplate.from_template(template )
 
 # # Modify the rag_chain to return the result instead of streaming
 rag_chain = (
-    {"context": retriever, "question": RunnablePassthrough()}
+    {"context": retriever, "question": RunnablePassthrough(),"chat_history":memory.load_memory_variables({})['chat_history']}
     | prompt
     | llm
     | StrOutputParser()
@@ -118,6 +119,7 @@ def main():
             partial_response += chunk
             response_placeholder.write(partial_response)
         msgs.add_ai_message(partial_response)
+        memory.save_context({"input":user_question}, {"output": partial_response})
     # with view_messages:
     #     """
     #     Message History initialized with:

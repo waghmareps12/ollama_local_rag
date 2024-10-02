@@ -12,6 +12,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 # from langchain_openai import AzureOpenAI, AzureOpenAIEmbeddings
 from langchain.chat_models import AzureChatOpenAI
 from langchain_community.vectorstores import FAISS
+from langchain.memory import ConversationBufferMemory
 from dotenv import load_dotenv
 import os
 load_dotenv() # read local .env file
@@ -22,7 +23,8 @@ OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
 # # Create embeddingsclear
 embeddings = OllamaEmbeddings(model="nomic-embed-text", show_progress=False)
 
-
+# Set up conversational memory
+memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 # Load the saved index
 loaded_vectorstore = FAISS.load_local("my_faiss_index", embeddings, allow_dangerous_deserialization=True)
@@ -61,17 +63,17 @@ Write in full sentences with correct spelling and punctuation. Use bullet points
 If the context doesn't contain the answer, politely state that you don't have the specific information and suggest contacting the sales department for more details.
 
 CONTEXT: {context}
-
+CHAT HISTORY: {chat_history}
 QUESTION: {question}
 
 <end_of_turn>
 <start_of_turn>model
 ANSWER:"""
-prompt = ChatPromptTemplate.from_template(template )
+prompt = ChatPromptTemplate.from_template(template)
 
 # # Modify the rag_chain to return the result instead of streaming
 rag_chain = (
-    {"context": retriever, "question": RunnablePassthrough()}
+    {"context": retriever, "question": RunnablePassthrough(), "chat_history":memory.load_memory_variables({})['chat_history']}
     | prompt
     | llm
     | StrOutputParser()
@@ -95,11 +97,11 @@ def main():
         This app is an LLM-powered chatbot built using:
         - [Streamlit](https://streamlit.io/)
         - [LangChain](https://python.langchain.com/)
-        - [Ollama](https://ollama.com/) LLM model
+        - [Ollama](https://ollama.com/) for Embeddings
     
         ''')
         # add_vertical_space(5)
-        st.write('Made with ❤️')
+        # st.write('Made with ❤️')
         # st.write('Made with ❤️ by [Pranay](https://youtube.com/@engineerprompt)')
     st.title("Sales Inquiry Assistant")
     msgs = StreamlitChatMessageHistory(key="langchain_messages")
@@ -142,6 +144,7 @@ def main():
             partial_response += chunk
             response_placeholder.write(partial_response)
         msgs.add_ai_message(partial_response)
+        memory.save_context({"input":user_question}, {"output": partial_response})
     # with view_messages:
     #     """
     #     Message History initialized with:
