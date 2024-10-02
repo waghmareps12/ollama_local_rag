@@ -23,7 +23,7 @@ retriever = db.as_retriever(
 )
 
 # # Create Ollama language model - Gemma 2
-local_llm = 'gemma2:2b'
+local_llm = 'llama3.2:latest'
 
 llm = ChatOllama(model=local_llm,
                  keep_alive="3h", 
@@ -102,9 +102,22 @@ def main():
         st.chat_message("human").write(user_question)
         # Note: new messages are saved to history automatically by Langchain during run
         config = {"configurable": {"session_id": "any"}}
-        response = rag_chain.invoke(user_question)
-        msgs.add_ai_message(response)
-        st.chat_message("ai").write(response)
+        # response = rag_chain.invoke(user_question)
+        # msgs.add_ai_message(response)
+        # st.chat_message("ai").write(response)
+
+        ai_message = st.chat_message("ai")
+        response_placeholder = ai_message.empty()  # Keeps the message box ready for real-time updates
+
+        # config = {"configurable": {"session_id": "any"}}
+        
+        # Stream the response from the RAG chain
+        partial_response = ""
+        
+        for chunk in rag_chain.stream(user_question):
+            partial_response += chunk
+            response_placeholder.write(partial_response)
+        msgs.add_ai_message(partial_response)
     # with view_messages:
     #     """
     #     Message History initialized with:
