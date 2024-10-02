@@ -31,7 +31,7 @@ llm = AzureChatOpenAI(openai_api_base=OPENAI_API_BASE,
                         #deployment_name = 'genai-gpt-4-32k',
                         #model_name = 'gpt-4-32k')
                         deployment_name = 'genai-gpt-35-turbo',
-                        model_name = 'gpt-35-turbo')
+                        model_name =  'gpt-4o')
 
 df_agent = create_pandas_dataframe_agent(llm, df, verbose=True,allow_dangerous_code=True,max_iterations = 3)
 

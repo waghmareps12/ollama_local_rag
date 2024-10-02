@@ -54,7 +54,7 @@ llm = AzureChatOpenAI(openai_api_base=OPENAI_API_BASE,
                         #deployment_name = 'genai-gpt-4-32k',
                         #model_name = 'gpt-4-32k')
                         deployment_name = 'genai-gpt-35-turbo',
-                        model_name = 'gpt-35-turbo')
+                        model_name = 'gpt-4o')
 
 # # Create prompt template
 template = """<bos><start_of_turn>user
