@@ -8,36 +8,41 @@ from langchain_community.vectorstores import FAISS
 from langchain.chat_models import AzureChatOpenAI
 from dotenv import load_dotenv
 import os
+from langchain.agents.agent_types import AgentType
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
+from langchain.tools import Tool
+from langchain.agents import initialize_agent, AgentType
 import pandas as pd
-from langchain.agents import create_pandas_dataframe_agent
 
 load_dotenv()  # Load environment variables
+OPENAI_API_TYPE = os.getenv('OPENAI_API_TYPE')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+OPENAI_API_BASE = os.getenv('OPENAI_API_BASE')
+OPENAI_API_VERSION = os.getenv('OPENAI_API_VERSION')
 
-# Load DataFrame with employee-related data (rebates, market share, etc.)
 df = pd.read_csv(r'./car_dummy.csv')
+df_columns = df.columns
 
 
-# Create pandas DataFrame agent
-llm_for_pandas = AzureChatOpenAI(openai_api_base=OPENAI_API_BASE,
-                                 openai_api_version=OPENAI_API_VERSION,
-                                 openai_api_key=OPENAI_API_KEY,
-                                 openai_api_type=OPENAI_API_TYPE,
-                                 deployment_name='genai-gpt-35-turbo',
-                                 model_name='gpt-35-turbo')
+llm = AzureChatOpenAI(openai_api_base=OPENAI_API_BASE,
+                        openai_api_version=OPENAI_API_VERSION,
+                        openai_api_key=OPENAI_API_KEY,
+                        openai_api_type=OPENAI_API_TYPE,
+                        #deployment_name = 'genai-gpt-4-32k',
+                        #model_name = 'gpt-4-32k')
+                        deployment_name = 'genai-gpt-35-turbo',
+                        model_name = 'gpt-35-turbo')
 
-df_agent = create_pandas_dataframe_agent(llm_for_pandas, df, verbose=True)
+df_agent = create_pandas_dataframe_agent(llm, df, verbose=True,allow_dangerous_code=True,max_iterations = 3)
 
 # Create embeddings for the vector store
 embeddings = OllamaEmbeddings(model="nomic-embed-text", show_progress=False)
 
-# Load FAISS index
-index_name = "faiss_index"
-if os.path.exists(f"{index_name}.faiss") and os.path.exists(f"{index_name}.pkl"):
-    vectorstore = FAISS.load_local(index_name, embeddings)
-    print("Loaded existing FAISS index.")
+# Load the saved index
+loaded_vectorstore = FAISS.load_local("my_faiss_index", embeddings, allow_dangerous_deserialization=True)
 
 # Create retriever
-retriever = vectorstore.as_retriever(
+retriever = loaded_vectorstore.as_retriever(
     search_type="similarity",
     search_kwargs={"k": 5}
 )
@@ -50,7 +55,9 @@ If the context doesn't contain the specific information, politely state that you
 
 CONTEXT: {context}
 
-DATAFRAME INFO: {dataframe_info}
+DATAFRAME INFO: {dataframe_info} 
+
+dataframe columns = {df_columns}
 
 QUESTION: {question}
 
@@ -82,7 +89,7 @@ def chatbot(query):
     final_input = template.format(context=context_str, dataframe_info=dataframe_info, question=query)
 
     # Get response from the LLM
-    response = llm_for_pandas(final_input)
+    response = llm(final_input)
     return response
 
 # Streamlit app interface
