@@ -15,6 +15,14 @@ from langchain_community.vectorstores import FAISS
 from langchain.memory import ConversationBufferMemory
 from dotenv import load_dotenv
 import os
+from langchain.agents.agent_types import AgentType
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
+from langchain.agents import initialize_agent, AgentType, Tool
+import pandas as pd
+
+
+
+
 load_dotenv() # read local .env file
 OPENAI_API_TYPE = os.getenv('OPENAI_API_TYPE')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
@@ -54,7 +62,8 @@ llm = AzureChatOpenAI(openai_api_base=OPENAI_API_BASE,
                         #deployment_name = 'genai-gpt-4-32k',
                         #model_name = 'gpt-4-32k')
                         deployment_name = 'genai-gpt-35-turbo',
-                        model_name = 'gpt-4o')
+                        model_name = 'gpt-4o',
+                        temperature = 0)
 
 # # Create prompt template
 template = """<bos><start_of_turn>user
@@ -84,14 +93,106 @@ rag_chain = (
     | llm
     | StrOutputParser()
 )
-
+df = pd.read_csv(r'./dummy_CAR.csv').rename(columns=str.lower)
+df_columns =df.columns
 # qa_chain = RetrievalQA.from_chain_type(
 #     llm, retriever=retriever, chain_type_kwargs={"prompt": prompt}
 # )
 
 # # Streamlit UI
 
+def check_sap_in_roster(df: pd.DataFrame, sap_value: int) -> pd.DataFrame:
+    """Check if a particular SAP value exists in the roster. and say if it exist also provide the name and address along with rfp_name"""
+    return df[df['sap'] == sap_value][['sap','rfp_name_random',
+       'rfp_location', 'name', 'address',]]
+tools = [
+    Tool(
+    name="check_sap_in_roster",
+    func=lambda x: check_sap_in_roster(df, int(x)),
+    description="""
+    Useful for checking if a specific SAP value exists in the roster dataframe.
+    Input: A numeric SAP value (e.g., 100241).
+    Output: If the SAP exists, it returns relevant details such as rfp_name, name, and address.
+    If the SAP doesn't exist, it returns an empty DataFrame.
+    include and summarise all the information returned by the tool
+    """
+),
+    Tool(
+        name="FAQ for sales Inquiries",
+        func=retriever.get_relevant_documents,
+       description="Use this tool for general sales inquiries, questions about the tracker, or when you can't find specific information about an account. Input should be the full question or description of the issue."
+    ),
 
+
+    
+]
+# Create custom agent prompt with friendly HR assistant context
+agent_kwargs = {
+    'prefix': '''You are a sales inquiry assistant specializing in rebates,
+      market share, promotions, and payouts. Your primary tasks are:
+1. Checking if SAP numbers exist in the roster
+2. Answering general sales inquiries
+3. Helping with issues related to finding accounts in the tracker
+
+Follow these steps for each query:
+1. Determine which tool is most appropriate for the query.
+2. Use the selected tool and analyze its output.
+3. If the tool doesn't provide a satisfactory answer, consider using the other tool or stating that you don't have the information.
+4. Provide a clear and concise answer based on the tool's output.
+
+Remember:
+- For SAP number checks, use the "check_sap_in_roster" tool.
+- For all other inquiries, including tracker issues, use the "FAQ_for_sales_inquiries" tool.
+- If you can't find an answer, politely state that and suggest contacting the sales department for further assistance.
+
+You have access to the following tools:''',
+    'format_instructions': '''Use the following format:
+
+Question: the input question you must answer
+Thought: you should always think about what to do
+Action: the action to take, should be one of [{tool_names}]
+Action Input: the input to the action
+Observation: the result of the action
+... (this Thought/Action/Action Input/Observation can repeat N times)
+Thought: I now know the final answer
+Final Answer: the final answer to the original input question''',
+    'suffix': '''Begin!
+
+Question: {input}
+Thought: Let's approach this step-by-step:'''
+}
+
+# Initialize the agent
+agent = initialize_agent(
+    tools=tools,
+    llm=llm,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True,
+    agent_kwargs=agent_kwargs,
+    handle_parsing_errors=True,
+    early_stopping_method="generate",
+    max_iterations=3
+)
+
+# Custom function to handle agent execution
+def execute_agent(agent, query):
+    try:
+        result = agent.run(query)
+        return result
+    except Exception as e:
+        error_msg = str(e)
+        if "Could not parse LLM output" in error_msg:
+            # Extract the actual response from the error message
+            actual_response = error_msg.split("Could not parse LLM output: `")[1].rsplit("`", 1)[0]
+            # stream_handler.text += f"\n\nFinal Answer: {actual_response}"
+            # stream_handler.container.markdown(stream_handler.text)
+            return actual_response
+        else:
+            error_response = f"An error occurred: {error_msg}"
+            # stream_handler.text += f"\n\n{error_response}"
+            # stream_handler.container.markdown(stream_handler.text)
+            return error_response
+        
 def main():
     # Streamlit configuration
     st.set_page_config(page_title="Sales Inquiry Assistant", page_icon="💬")
@@ -108,7 +209,7 @@ def main():
         ''')
         # add_vertical_space(5)
         # st.write('Made with ❤️')
-        # st.write('Made with ❤️ by [Pranay](https://youtube.com/@engineerprompt)')
+        # st.write('Made with ❤️ by [Pranay]()')
     st.title("Sales Inquiry Assistant")
     msgs = StreamlitChatMessageHistory(key="langchain_messages")
     if len(msgs.messages) == 0:
@@ -146,10 +247,16 @@ def main():
         # Stream the response from the RAG chain
         partial_response = ""
         
-        for chunk in rag_chain.stream(user_question):
-            partial_response += chunk
-            response_placeholder.write(partial_response)
-        msgs.add_ai_message(partial_response)
+        # for chunk in rag_chain.stream(user_question):
+        
+        # for chunk in execute_agent(agent, user_question):
+        #     partial_response += chunk
+        #     response_placeholder.write(partial_response)
+        with st.spinner("Thinking..."):
+            assistant_response = execute_agent(agent, user_question) 
+        # assistant_response = StrOutputParser.parse(assistant_response)
+        response_placeholder.write(assistant_response)
+        msgs.add_ai_message(assistant_response)
         memory.save_context({"input":user_question}, {"output": partial_response})
     # with view_messages:
     #     """
