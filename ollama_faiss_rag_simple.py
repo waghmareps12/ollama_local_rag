@@ -13,6 +13,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain.chat_models import AzureChatOpenAI
 from langchain_community.vectorstores import FAISS
 from langchain.memory import ConversationBufferMemory
+from langchain_community.chat_models import ChatOllama
 from dotenv import load_dotenv
 import os
 load_dotenv() # read local .env file
@@ -40,21 +41,21 @@ if os.path.exists(f"{index_name}.faiss") and os.path.exists(f"{index_name}.pkl")
     print("Loaded existing FAISS index.")
 
 # # Create Ollama language model - Gemma 2
-# local_llm = 'llama3.2:latest'
+local_llm = 'qwen2.5:latest'
 
-# llm = ChatOllama(model=local_llm,
-#                  keep_alive="3h", 
-#                  max_tokens=512,  
-#                  temperature=0)
+llm = ChatOllama(model=local_llm,
+                 keep_alive="3h", 
+                 max_tokens=512,  
+                 temperature=0)
 
-llm = AzureChatOpenAI(openai_api_base=OPENAI_API_BASE,
-                        openai_api_version=OPENAI_API_VERSION,
-                        openai_api_key=OPENAI_API_KEY,
-                        openai_api_type=OPENAI_API_TYPE,
-                        #deployment_name = 'genai-gpt-4-32k',
-                        #model_name = 'gpt-4-32k')
-                        deployment_name = 'genai-gpt-35-turbo',
-                        model_name = 'gpt-4o')
+# llm = AzureChatOpenAI(openai_api_base=OPENAI_API_BASE,
+#                         openai_api_version=OPENAI_API_VERSION,
+#                         openai_api_key=OPENAI_API_KEY,
+#                         openai_api_type=OPENAI_API_TYPE,
+#                         #deployment_name = 'genai-gpt-4-32k',
+#                         #model_name = 'gpt-4-32k')
+#                         deployment_name = 'genai-gpt-35-turbo',
+#                         model_name = 'gpt-4o')
 
 # # Create prompt template
 template = """<bos><start_of_turn>user
